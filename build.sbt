@@ -213,7 +213,24 @@ lazy val commonSettings =
     Compile / scalafmt := {
       val _ = (Compile / scalafmtSbt).value
       (Compile / scalafmt).value
-    }
+    },
+    /**
+      * Do not pack sources in compile tasks.
+      */
+    Compile / doc / sources := Seq.empty,
+    /**
+      * Disabling Scala and Java documentation in publishing tasks.
+      */
+    Compile / packageDoc / publishArtifact := false,
+    Test / packageDoc / publishArtifact    := false,
+    Test / packageBin / publishArtifact    := true,
+    Test / packageSrc / publishArtifact    := true,
+    publishConfiguration                   := publishConfiguration.value.withOverwrite(true),
+    publishLocalConfiguration              := publishLocalConfiguration.value.withOverwrite(true),
+    publishTo := Some(
+      "Artifactory Realm".at(s"https://central.enliven.systems/artifactory/sbt-release/")
+    ),
+    credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
   )
 
 // *****************************************************************************
@@ -230,7 +247,7 @@ lazy val library =
       val circe              = "0.14.1"
       val jacksonModuleScala = "2.13.0"
       val jsoniterScala      = "2.10.2"
-      val json4s             = "4.0.3"
+      val json4s             = "3.7.0-M11"
       val ninny              = "0.2.12"
       val play               = "2.9.2"
       val scalaTest          = "3.2.10"
