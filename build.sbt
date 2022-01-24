@@ -230,7 +230,7 @@ lazy val commonSettings =
     publishTo := Some(
       "Artifactory Realm".at(s"https://central.enliven.systems/artifactory/sbt-release/")
     ),
-    credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
+    credentials += Credentials(Path.userHome / ".sbt" / ".credentials.central")
   )
 
 // *****************************************************************************
